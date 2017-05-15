@@ -40,31 +40,19 @@ Article.fetchAll = function() {
 			// When rawData is already in localStorage,
 			// we can load it with the .loadAll function above,
 			// and then render the index page (using the proper method on the articleView object).
-    Article.loadAll(localStorage.rawData); //TODO: What do we pass in to loadAll()?
+      //TODO: What do we pass in to loadAll()?
 			//TODO: What method do we call to render the index page?
-			// Article.forEach(function(Article.all) {
-			// 			console.log(Article.fetchAll);
-			// 			$('#articles').append(Article.all.toHtml());
-  }
-  else {
-						// TODO: When we don't already have the rawData,
-						// we need to retrieve the JSON file from the server with AJAX (which // jQuery method is best for this?),
-    $.getJSON('/data/hackerIpsum.json')
-            .then(
-              function(data) {
-                data.forEach(function(articleObject) {
-                  Article.all.push(new Article(articleObject))
-                })
-                // and then render the index page.
-                Article.all.forEach(function(ourNewarticleObject) {
-                  $('#articles').append(ourNewarticleObject.toHtml());
-                })
-              }
-        )
+  } else {
+			// TODO: When we don't already have the rawData,
+			// we need to retrieve the JSON file from the server with AJAX (which // jQuery method is best for this?),
+    $.getJSON('/data/hackerIpsum.json').then(function(data) {
+      localStorage.rawData = (JSON.stringify(data))
+      data.forEach(function(articleObject) {
+        Article.all.push(new Article(articleObject))
+      })
+      Article.all.forEach(function(ourNewarticleObject) {
+        $('#articles').append(ourNewarticleObject.toHtml());
+      })
+    })
   }
 }
-            // cache it in localStorage so we can skip the server call next time,
-            // then load all the data into Article.all with the .loadAll function above,
-            // JSON.stringify('data', data),
-            //   localStorage.setItem('data', data),
-          										// Article.loadAll('data');
