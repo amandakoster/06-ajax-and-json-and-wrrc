@@ -27,7 +27,7 @@ Article.loadAll = function(rawData) {
   })
 }
 
-Article.fetchAll = function() {
+Article.fetchAll = function() { //.fetchAll() atuomatically parcese data into JS object so data must be stringified.
   if (localStorage.rawData) { //if on local storage, get data from local storage
     let rawData = (JSON.parse(localStorage.rawData))
     Article.loadAll(rawData)
@@ -36,7 +36,7 @@ Article.fetchAll = function() {
     })
   } else { // else, get data from the .json file
     $.getJSON('/data/hackerIpsum.json').then(function(data) {
-      localStorage.rawData = (JSON.stringify(data))
+      localStorage.rawData = (JSON.stringify(data)) // because we used .fetchAll on line 30
       data.forEach(function(articleObject) {
         Article.all.push(new Article(articleObject))
       })
