@@ -8,11 +8,7 @@ function Article(rawDataObj) {
   this.body = rawDataObj.body;
   this.publishedOn = rawDataObj.publishedOn;
 }
-// REVIEW: Instead of a global `articles = []` array, let's track this list of all articles directly on the
-// constructor function. Note: it is NOT on the prototype. In JavaScript, functions are themselves
-// objects, which means we can add properties/values to them at any time. In this case, we have
-// a key/value pair to track, that relates to ALL of the Article objects, so it does not belong on
-// the prototype, as that would only be relevant to a single instantiated Article.
+
 Article.all = [];
 Article.prototype.toHtml = function() {
   let template = Handlebars.compile($('#article-template').text());
@@ -21,12 +17,7 @@ Article.prototype.toHtml = function() {
   this.body = marked(this.body);
   return template(this);
 };
-// REVIEW: There are some other functions that also relate to articles across the board, rather than
-// just single instances. Object-oriented programming would call these "class-level" functions,
-// that are relevant to the entire "class" of objects that are Articles.
-// REVIEW: This function will take the rawData, however it is provided,
-// and use it to instantiate all the articles. This code is moved from elsewhere, and
-// encapsulated in a simply-named function for clarity.
+
 Article.loadAll = function(rawData) {
   rawData.sort(function(a, b) {
     return (new Date(b.publishedOn)) - (new Date(a.publishedOn));
