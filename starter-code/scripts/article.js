@@ -28,13 +28,13 @@ Article.loadAll = function(rawData) {
 }
 
 Article.fetchAll = function() {
-  if (localStorage.rawData) {
+  if (localStorage.rawData) { //if on local storage, get data from local storage
     let rawData = (JSON.parse(localStorage.rawData))
     Article.loadAll(rawData)
     Article.all.forEach(function(ourNewarticleObject) {
       $('#articles').append(ourNewarticleObject.toHtml());
     })
-  } else {
+  } else { // else, get data from the .json file
     $.getJSON('/data/hackerIpsum.json').then(function(data) {
       localStorage.rawData = (JSON.stringify(data))
       data.forEach(function(articleObject) {
