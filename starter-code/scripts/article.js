@@ -1,5 +1,3 @@
-// I updated our lab 6 assignment, putting in the articleView.initIndexPage() in the Article.fetchAll() function. Its in the same pull request to the original repo. I resubmitted it since I lost a couple of points for that.
-
 'use strict';
 
 function Article(rawDataObj) {
@@ -15,7 +13,7 @@ Article.all = [];
 Article.prototype.toHtml = function() {
   let template = Handlebars.compile($('#article-template').text());
   this.daysAgo = parseInt((new Date() - new Date(this.publishedOn)) / 60 / 60 / 24 / 1000);
-  this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago`o : '(draft)';
+  this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
   this.body = marked(this.body);
   return template(this);
 };
